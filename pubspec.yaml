@@ -43,6 +43,7 @@ dependencies:
   flutter_linkify: ^6.0.0
   hyperlink:
   blur:
+  youtube_player_flutter: 
 
 
 
