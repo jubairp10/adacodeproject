@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import '../homescreen.dart';
+import '../home/homescreen.dart';
 
 class Data extends StatefulWidget {
   @override

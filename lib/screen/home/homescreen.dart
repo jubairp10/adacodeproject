@@ -1,25 +1,37 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hello/home%20screen/my%20learning/learning.dart';
+import 'package:hello/login/loginpage.dart';
 
-import '../navigation/navigation.dart';
-import 'Scholarship Details/Scholarship detail.dart';
-import 'contacts/contact.dart';
-import 'datascience/datascience.dart';
-import 'flutter/flutter.dart';
-import 'mern/mernstack.dart';
+
+import '../../navigation/navigation.dart';
+import '../../service/firebasehelper.dart';
+import '../Scholarship Details/Scholarship detail.dart';
+import '../contacts/contact.dart';
+import '../datascience/datascience.dart';
+import '../flutter/flutter.dart';
+import '../mern/mernstack.dart';
+import '../my learning/learning.dart';
 
 
 
 class Screen1 extends StatefulWidget {
+
   @override
   State<Screen1> createState() => _Screen1State();
 }
 
 class _Screen1State extends State<Screen1> {
   GlobalKey<ScaffoldState>_scaffoldkey=GlobalKey<ScaffoldState>();
+
+
+
+  final user = FirebaseHelper().getCurrentUser();
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +65,8 @@ class _Screen1State extends State<Screen1> {
                        ),
                      ),
                      Positioned(left: 80,top: 30,
-                       child: Text(
+                       child:
+                       Text(
                          "Kevin Roan",
                          style: TextStyle(
                              color: Colors.black87,
@@ -101,17 +114,30 @@ class _Screen1State extends State<Screen1> {
           SizedBox(height: 310,),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Container(height: 43,width: 163,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.grey[300]
-              ),
-              child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FaIcon(FontAwesomeIcons.signOutAlt,size: 15),
-                  SizedBox(width: 10,),
-                  Text('Sign Out',style: TextStyle(fontSize: 16),),
-                ],
-              )
-              ),
+            child: InkWell(onTap: ()
+
+              async {
+                await FirebaseHelper().signOut();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+
+
+
+            },
+              child: Container(height: 43,width: 163,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.grey[300]
+                ),
+                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FaIcon(FontAwesomeIcons.signOutAlt,size: 15),
+                    SizedBox(width: 10,),
+                    Text('Sign Out',style: TextStyle(fontSize: 16),),
+                  ],
+                )
+                ),
+            ),
           ),
             ],
           ),

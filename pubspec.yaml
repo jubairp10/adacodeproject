@@ -50,8 +50,10 @@ dependencies:
   firebase_core:
   firebase_storage:
   cloud_firestore:
-  provider:
   get_storage:
+  get:
+  firebase_app_check:
+  provider:
 
 
 

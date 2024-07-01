@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:advanced_salomon_bottom_bar/advanced_salomon_bottom_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../home screen/contacts/contact.dart';
-import '../home screen/homescreen.dart';
-import '../home screen/my learning/learning.dart';
+import '../screen/home/homescreen.dart';
+import '../screen/my learning/learning.dart';
 
-void main() {
-  runApp(Naviga());
-}
+
+
 
 class Naviga extends StatefulWidget {
 
@@ -18,6 +16,10 @@ class Naviga extends StatefulWidget {
 }
 
 class _MyAppState extends State<Naviga> {
+
+
+
+
   var _currentIndex = 0;
   late PageController _pageController;
 
@@ -27,11 +29,11 @@ class _MyAppState extends State<Naviga> {
     _pageController = PageController();
   }
 
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _pageController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

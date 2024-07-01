@@ -1,6 +1,11 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:hello/navigation/navigation.dart';
+import '../service/firebasehelper.dart';
 
 
 
@@ -11,6 +16,12 @@ class Regi extends StatefulWidget {
 
 class _RegiState extends State<Regi> {
 
+
+
+
+
+
+
   String ? name;
 
   String ? email;
@@ -20,6 +31,36 @@ class _RegiState extends State<Regi> {
   bool showpass = true;
 
   var formkey = GlobalKey<FormState>();
+
+
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
+
+
+  void showSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  bool _isEmailValid(String email) {
+    final emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
+    return emailRegex.hasMatch(email);
+  }
+
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   firebaseHelper = FirebaseHelper(); // Initialize your firebaseHelper here
+  // }
+  // @override
+  // // void dispose() {
+  // //  _emailcontroller.dispose();
+  // //  _passwordcontroller.dispose();
+  // //   super.dispose();
+  // // }
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +102,8 @@ class _RegiState extends State<Regi> {
             child: Container(height: 67,width: 377,
 
               child: TextFormField(
+                controller: namecontroller,
+
                 textInputAction: TextInputAction.next,
                 style: TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
@@ -109,6 +152,8 @@ class _RegiState extends State<Regi> {
               height: 67,
               width: 377,
               child: TextFormField(
+                controller: emailcontroller,
+
                 textInputAction: TextInputAction.next,
                 style: TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
@@ -123,16 +168,13 @@ class _RegiState extends State<Regi> {
                   ),
                 ),
 
-                validator: (email){
-
-                  if (email!.isEmpty
-                      ||!email.contains("@")||!email.contains(".com")){
-
-                    return "Enter your email ";
-
-                  }   else{
-                    return null;
+                validator:     (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  } else if (!_isEmailValid(value)) {
+                    return 'The email address is badly formatted';
                   }
+                  return null;
                 },
 
                 onSaved: (eemail){
@@ -151,6 +193,8 @@ class _RegiState extends State<Regi> {
             padding: const EdgeInsets.only(right: 26,left: 26),
             child: Container(height: 67,width: 377,
               child: TextFormField(
+                controller: passwordcontroller,
+
                 textInputAction: TextInputAction.next,
                 style: TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
@@ -186,6 +230,23 @@ class _RegiState extends State<Regi> {
           Padding(
             padding: const EdgeInsets.only(right: 25, left: 25),
             child: InkWell(
+
+              onTap:() {
+                if (formkey.currentState!.validate())
+                {
+                  formkey.currentState!.save();
+                  FirebaseHelper()
+                      .signUp(email: email!, pasword: password!)
+                      .then((value) {
+                    if (value == null) {
+                      Get.to(Naviga());
+                    } else {
+                      Get.snackbar(
+                          "Error", "User not found $value");
+                    }
+                  });
+                }
+              },
 
 
               child: Container(height: 50,
@@ -267,4 +328,23 @@ class _RegiState extends State<Regi> {
 
   );
   }
+
+  // void signUpUser() async {
+  //   print("Signing up user...");
+  //   try {
+  //     await context.read<Firebaseauth_method>().Signupemail(
+  //       email: _emailcontroller.text,
+  //       password: _passwordcontroller.text,
+  //       name: _namecontroller.text,
+  //       context: context,
+  //     );
+  //
+  //     Navigator.pushReplacement(
+  //         context, MaterialPageRoute(builder: (context) => Naviga()));
+  //     print("Sign up successful!");
+  //   } catch (e) {
+  //     print("Error during sign up: $e");
+  //   }
+  // }
+
 }

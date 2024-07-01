@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 import '../../navigation/navigation.dart';
 import '../datascience/datascience.dart';
-import '../homescreen.dart';
+import '../home/homescreen.dart';
 
 
 

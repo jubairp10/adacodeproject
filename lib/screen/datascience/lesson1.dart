@@ -3,20 +3,12 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hello/home%20screen/datascience/video%20list.dart';
+import 'package:hello/screen/datascience/video%20list.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.blueAccent,
-    ),
-  );
-  runApp(YoutubePlayerDemoApp());
-}
+
 
 /// Creates [YoutubePlayerDemoApp] widget.
 class YoutubePlayerDemoApp extends StatelessWidget {

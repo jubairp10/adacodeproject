@@ -1,9 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../homescreen.dart';
+import '../home/homescreen.dart';
 
-class flutter extends StatelessWidget {
+class mern extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +14,7 @@ class flutter extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: InkWell(
           onTap: () {
-            Navigator.pop(context);
+          Navigator.pop(context);
           },
           child: Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -41,17 +43,15 @@ class flutter extends StatelessWidget {
                   image: DecorationImage(
                       fit: BoxFit.fill,
                       image: AssetImage(
-                        'assets/image/images (5).jpeg',
+                        'assets/image/1687700213776.png',
                       ))),
             ),
           ),
-
-
           SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.only(left: 25),
             child: Text(
-              "Flutter",
+              "Mern Stack",
               style: TextStyle(
                   color: Colors.black87,
                   fontSize: 24,
@@ -139,7 +139,7 @@ class flutter extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             child: Image(
                               image: AssetImage(
-                                  "assets/image/images (5).jpeg"),height: 69,width: 112,
+                                  "assets/image/1687700213776.png"),height: 69,width: 112,
                               fit: BoxFit.fill,
                             )),
                       ),
@@ -209,7 +209,7 @@ class flutter extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             child: Image(
                               image: AssetImage(
-                                  "assets/image/images (5).jpeg"),height: 69,width: 112,
+                                  "assets/image/1687700213776.png"),height: 69,width: 112,
                               fit: BoxFit.fill,
                             )),
                       ),
@@ -279,7 +279,7 @@ class flutter extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             child: Image(
                               image: AssetImage(
-                                  "assets/image/images (5).jpeg"),height: 69,width: 112,
+                                  "assets/image/1687700213776.png"),height: 69,width: 112,
                               fit: BoxFit.fill,
                             )),
                       ),
@@ -349,7 +349,7 @@ class flutter extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             child: Image(
                               image: AssetImage(
-                                  "assets/image/images (5).jpeg"),height: 69,width: 112,
+                                  "assets/image/1687700213776.png"),height: 69,width: 112,
                               fit: BoxFit.fill,
                             )),
                       ),
@@ -419,7 +419,7 @@ class flutter extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             child: Image(
                               image: AssetImage(
-                                  "assets/image/images (5).jpeg"),height: 69,width: 112,
+                                  "assets/image/1687700213776.png"),height: 69,width: 112,
                               fit: BoxFit.fill,
                             )),
                       ),
@@ -489,7 +489,7 @@ class flutter extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             child: Image(
                               image: AssetImage(
-                                  "assets/image/images (5).jpeg"),height: 69,width: 112,
+                                  "assets/image/1687700213776.png"),height: 69,width: 112,
                               fit: BoxFit.fill,
                             )),
                       ),
