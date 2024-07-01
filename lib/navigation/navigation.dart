@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:advanced_salomon_bottom_bar/advanced_salomon_bottom_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../home screen/contacts/contact.dart';
 import '../home screen/homescreen.dart';
@@ -83,7 +84,7 @@ class _MyAppState extends State<Naviga> {
 
             /// Profile
             AdvancedSalomonBottomBarItem(
-              icon: Icon(Icons.history_edu),
+              icon: FaIcon(FontAwesomeIcons.book),
               title: Text("Learning"),
               selectedColor: Colors.teal,
             ),

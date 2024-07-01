@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:blur/blur.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import '../homescreen.dart';
 
@@ -13,9 +14,40 @@ class Data extends StatefulWidget {
 
 class _DataState extends State<Data> {
    bool ispaymentConfirmed=false;
+   
+   late VideoPlayerController _controller;
+   
+   
+   @override
+  void initState() {
+    super.initState();
+    _controller=VideoPlayerController.networkUrl(Uri.parse('https://media.istockphoto.com/id/1556389414/video/man-using-a-laptop-double-exposure-with-business-data-analytics-dashboard.mp4?s=mp4-640x640-is&k=20&c=J7dE_a85kSnTLEFiXYLbDpK-W9_8S6GtD14l3DD6EMQ='))
+    ..initialize().then((_){
+      setState(() {
+
+      });
+    });
+  }
+  @override
+  void dispose() {
+   _controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     setState(() {
+      //       _controller.value.isPlaying
+      //           ? _controller.pause()
+      //           : _controller.play();
+      //     });
+      //   },
+      //   child: Icon(
+      //     _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+      //   ),
+      // ),
       backgroundColor: Colors.white,
       appBar: AppBar(elevation: 0,
         backgroundColor: Colors.white,
@@ -42,21 +74,36 @@ class _DataState extends State<Data> {
          Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.only(right: 15, left: 15),
-              child: Container(
-                height: 219,
-                width: 395,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                          'assets/image/DataScience_shutterstock_1054542323 (1).png',
-                        ),),
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 15, left: 15),
+            //   child: Container(
+            //     height: 219,
+            //     width: 395,
+            //     decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(15),
+            //         image: DecorationImage(
+            //             fit: BoxFit.fill,
+            //             image: AssetImage(
+            //               'assets/image/DataScience_shutterstock_1054542323 (1).png',
+            //             ),),
+            //     ),
+            //   ),
+            // ),
+Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Container(
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),),
+    child: Center(
+        child: _controller.value.isInitialized
+            ? AspectRatio(
+          aspectRatio: _controller.value.aspectRatio,
+          child: Container(child: VideoPlayer(_controller)),
+        )
+            : Container(),
+
+  )),
+),
+
             SizedBox(height: 5),
 
             Padding(
@@ -229,6 +276,19 @@ class _DataState extends State<Data> {
 
           ],
         ),
+      Positioned(top: 100,left: 170,
+        child: Container(height: 40,width: 40,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: Colors.white),
+
+          child: IconButton(onPressed: (){setState(() {
+            _controller.value.isPlaying
+                ? _controller.pause()
+                : _controller.play();
+          });
+
+          }, icon: Icon(_controller.value.isPlaying ? Icons.pause : Icons.play_arrow,color: Colors.black87,)),
+        ),
+      ),
       if(!ispaymentConfirmed)
         Positioned(bottom: 1,right: 5,left: 5,
           child: InkWell(onTap: (){

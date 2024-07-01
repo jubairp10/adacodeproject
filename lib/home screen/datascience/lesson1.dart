@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isPlayerReady = false;
 
   final List<String> _ids = [
-    'nPt8bK2gbaU',
+    'X3paOmcrTjQ',
     'gQDByCdjUXw',
     'iLnmTe5Q2Qw',
     '_WoCV4c6XOE',
@@ -142,16 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
               maxLines: 1,
             ),
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-              size: 25.0,
-            ),
-            onPressed: () {
-              log('Settings Tapped!');
-            },
-          ),
+
         ],
         onReady: () {
           _isPlayerReady = true;
@@ -216,32 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   _space,
-                  TextField(
-                    enabled: _isPlayerReady,
-                    controller: _idController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Enter youtube \<video id\> or \<link\>',
-                      fillColor: Colors.blueAccent.withAlpha(20),
-                      filled: true,
-                      hintStyle: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.blueAccent,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () => _idController.clear(),
-                      ),
-                    ),
-                  ),
-                  _space,
-                  Row(
-                    children: [
-                      _loadCueButton('LOAD'),
-                      const SizedBox(width: 10.0),
-                      _loadCueButton('CUE'),
-                    ],
-                  ),
+                  //
                   _space,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -326,22 +292,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   _space,
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 800),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: _getStateColor(_playerState),
-                    ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      _playerState.toString(),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                  //
                 ],
               ),
             ),
@@ -372,65 +323,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Color _getStateColor(PlayerState state) {
-    switch (state) {
-      case PlayerState.unknown:
-        return Colors.grey[700]!;
-      case PlayerState.unStarted:
-        return Colors.pink;
-      case PlayerState.ended:
-        return Colors.red;
-      case PlayerState.playing:
-        return Colors.blueAccent;
-      case PlayerState.paused:
-        return Colors.orange;
-      case PlayerState.buffering:
-        return Colors.yellow;
-      case PlayerState.cued:
-        return Colors.blue[900]!;
-      default:
-        return Colors.blue;
-    }
-  }
-
   Widget get _space => const SizedBox(height: 10);
 
-  Widget _loadCueButton(String action) {
-    return Expanded(
-      child: MaterialButton(
-        color: Colors.blueAccent,
-        onPressed: _isPlayerReady
-            ? () {
-          if (_idController.text.isNotEmpty) {
-            var id = YoutubePlayer.convertUrlToId(
-              _idController.text,
-            ) ??
-                '';
-            if (action == 'LOAD') _controller.load(id);
-            if (action == 'CUE') _controller.cue(id);
-            FocusScope.of(context).requestFocus(FocusNode());
-          } else {
-            _showSnackBar('Source can\'t be empty!');
-          }
-        }
-            : null,
-        disabledColor: Colors.grey,
-        disabledTextColor: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14.0),
-          child: Text(
-            action,
-            style: const TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-              fontWeight: FontWeight.w300,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(

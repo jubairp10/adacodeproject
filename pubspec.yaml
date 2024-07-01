@@ -43,7 +43,17 @@ dependencies:
   flutter_linkify: ^6.0.0
   hyperlink:
   blur:
-  youtube_player_flutter: 
+  youtube_player_flutter:
+  razorpay_flutter:
+  video_player:
+  firebase_auth:
+  firebase_core:
+  firebase_storage:
+  cloud_firestore:
+  provider:
+  get_storage:
+
+
 
 
 
