@@ -150,11 +150,21 @@
 
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class FirebaseHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+
+
+
+
+  User get user => _auth.currentUser!; //
+
+  //State persistence
+  Stream<User?> get authState => FirebaseAuth.instance.authStateChanges();
 
   // Sign In
   Future<User?> signIn(String email, String password) async {
@@ -199,15 +209,17 @@ class FirebaseHelper {
   // }
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  get user => auth.currentUser;
-  Future<String?>signUp(  {required String email, required String pasword}) async {
+  // get user => auth.currentUser;
+  Future<String?>signUp(  {required String name,required String email, required String pasword,required BuildContext context,}) async {
     try {
       await auth.createUserWithEmailAndPassword(
           email: email, password: pasword);
+      await _auth.currentUser!.updateProfile(displayName: name);
       return null;
     } on FirebaseAuthException
     catch (e) {
-      return e.message;
+ Get.snackbar(
+      'Error',e.message!);
     }
 
   }

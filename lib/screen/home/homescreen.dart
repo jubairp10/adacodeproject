@@ -1,9 +1,12 @@
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hello/login/loginpage.dart';
+import 'package:provider/provider.dart';
 
 
 import '../../navigation/navigation.dart';
@@ -28,12 +31,17 @@ class _Screen1State extends State<Screen1> {
 
 
 
-  final user = FirebaseHelper().getCurrentUser();
+  // final user = FirebaseHelper().getCurrentUser();
+
+
+
+
 
 
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<FirebaseHelper>().user;
     return Scaffold(
     key: _scaffoldkey,
       endDrawer: Padding(
@@ -67,7 +75,7 @@ class _Screen1State extends State<Screen1> {
                      Positioned(left: 80,top: 30,
                        child:
                        Text(
-                         "Kevin Roan",
+                        ' ${user.displayName !}',
                          style: TextStyle(
                              color: Colors.black87,
                              fontWeight: FontWeight.bold,
@@ -159,7 +167,7 @@ class _Screen1State extends State<Screen1> {
               style: TextStyle(color: Colors.grey[400]),
             ),
             subtitle: Text(
-              "Kevin Roan",
+              ' ${user.displayName !}',
               style: TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.bold,

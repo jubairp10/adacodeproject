@@ -1,9 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
 
-class Scholarship extends StatelessWidget {
+class Scholarship extends StatefulWidget {
+  @override
+  State<Scholarship> createState() => _ScholarshipState();
+}
+
+class _ScholarshipState extends State<Scholarship> {
+  
+  
+  var board_controller=TextEditingController();
+  var mark_controller=TextEditingController();
+  var passout_controller=TextEditingController();
+  var schoolname_controller=TextEditingController();
+  late CollectionReference _scholarshipcollection;
+  
+  @override
+  void initState() {
+   
+    
+    _scholarshipcollection = FirebaseFirestore.instance.collection("scholarship");
+    super.initState();
+  }
+  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,7 +195,7 @@ class Scholarship extends StatelessWidget {
               width: 375,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10,right: 10),
-                child: TextFormField(
+                child: TextFormField(controller:board_controller ,
                   textInputAction: TextInputAction.next,
                   style: TextStyle(color: Colors.black87),
                   decoration: InputDecoration(
@@ -198,7 +221,7 @@ class Scholarship extends StatelessWidget {
               width: 375,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10,right: 10),
-                child: TextFormField(
+                child: TextFormField(controller: mark_controller,
                   textInputAction: TextInputAction.next,
                   style: TextStyle(color: Colors.black87),
                   decoration: InputDecoration(
@@ -225,7 +248,7 @@ class Scholarship extends StatelessWidget {
               width: 375,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10,right: 10),
-                child: TextFormField(
+                child: TextFormField(controller: passout_controller,
                   textInputAction: TextInputAction.next,
                   style: TextStyle(color: Colors.black87),
                   decoration: InputDecoration(
@@ -251,7 +274,7 @@ class Scholarship extends StatelessWidget {
               width: 375,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10,right: 10),
-                child: TextFormField(
+                child: TextFormField(controller: schoolname_controller,
                   textInputAction: TextInputAction.next,
                   style: TextStyle(color: Colors.black87),
                   decoration: InputDecoration(
@@ -273,7 +296,7 @@ class Scholarship extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.only(right: 15, left: 15),
-            child: InkWell(
+            child: InkWell(onTap: adduser,
 
 
               child: Container(height: 52,width: 363,
@@ -301,4 +324,38 @@ class Scholarship extends StatelessWidget {
       ),
     );
   }
-}
+
+  Future<void>adduser()
+
+async{
+
+    return _scholarshipcollection.add({
+
+      "board":board_controller.text,
+
+      "mark":mark_controller.text,
+
+      "passout ": passout_controller.text,
+
+      'schoolname': schoolname_controller.text,
+
+
+    }).then((value){
+
+      print("user added succesfuly");
+
+      board_controller.clear();
+      mark_controller.clear();
+      mark_controller.clear();
+      passout_controller.clear();
+      schoolname_controller.clear();
+
+
+    }).catchError((error)
+        {
+          print("failed to add user $error");
+
+        }
+    );
+
+} }

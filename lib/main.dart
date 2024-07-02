@@ -58,6 +58,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:hello/navigation/navigation.dart';
+import 'package:hello/service/firebasehelper.dart';
+import 'package:provider/provider.dart';
 
 import 'login/loginpage.dart';
 
@@ -67,8 +69,22 @@ void main() async {
           apiKey: "AIzaSyD3Jg7W0gqJUQ7ABgD9ou3qhd5O0EnlIX0",
           appId: "1:646959906639:android:f52c305929f8d217580f3a",
           messagingSenderId: " ",
-          projectId:"studentapp-c1db3"));
-  runApp(MyApp());
+          projectId:"studentapp-c1db3",
+  storageBucket: "studentapp-c1db3.appspot.com"));
+  runApp(
+
+      MultiProvider(providers:[
+        // ChangeNotifierProvider(
+        //     create: (context) => Themeprovider()),
+        Provider<FirebaseHelper>(create: (_)=>FirebaseHelper( )),
+        StreamProvider(create: (context)=> context.read<FirebaseHelper>().authState, initialData: null),
+
+
+
+      ],
+        child: MyApp(),
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {

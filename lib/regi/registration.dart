@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hello/navigation/navigation.dart';
+import 'package:provider/provider.dart';
 import '../service/firebasehelper.dart';
 
 
@@ -22,7 +23,7 @@ class _RegiState extends State<Regi> {
 
 
 
-  String ? name;
+  String ? name1;
 
   String ? email;
 
@@ -132,7 +133,7 @@ class _RegiState extends State<Regi> {
 
                 onSaved: (ename){
 
-                  name = ename;
+                  name1 = ename;
                 },
 
 
@@ -231,12 +232,12 @@ class _RegiState extends State<Regi> {
             padding: const EdgeInsets.only(right: 25, left: 25),
             child: InkWell(
 
-              onTap:() {
+              onTap:() async{
                 if (formkey.currentState!.validate())
                 {
                   formkey.currentState!.save();
-                  FirebaseHelper()
-                      .signUp(email: email!, pasword: password!)
+                  await context.read<FirebaseHelper>()
+                      .signUp(name: name1!,email: email!, pasword: password!, context:context, )
                       .then((value) {
                     if (value == null) {
                       Get.to(Naviga());

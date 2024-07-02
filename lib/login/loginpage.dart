@@ -151,7 +151,8 @@ class _LoginState extends State<Login> {
             SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(right: 25, left: 25),
-              child: InkWell(onTap: ()async {
+              child: InkWell(onTap: ()
+              async {
                 if (formkey.currentState!.validate()) {
                   User? user = await FirebaseHelper().signIn(
                     emailController.text,
