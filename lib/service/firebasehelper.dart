@@ -153,9 +153,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
 
 
@@ -167,6 +169,7 @@ class FirebaseHelper {
   Stream<User?> get authState => FirebaseAuth.instance.authStateChanges();
 
   // Sign In
+
   Future<User?> signIn(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -176,6 +179,45 @@ class FirebaseHelper {
       return null;
     }
   }
+
+
+  // Future<User?> signInWithGoogle() async {
+  //   try {
+  //     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+  //     if (googleUser == null) return null;
+  //
+  //     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  //     final OAuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth.accessToken,
+  //       idToken: googleAuth.idToken,
+  //     );
+  //
+  //     UserCredential userCredential = await _auth.signInWithCredential(credential);
+  //     return userCredential.user;
+  //   } catch (e) {
+  //     print(e);
+  //     return null;
+  //   }
+  // }
+
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
 
   // Register
   // Future<User?> register(String email, String password, String name) async {
@@ -210,31 +252,52 @@ class FirebaseHelper {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   // get user => auth.currentUser;
-  Future<String?>signUp(  {required String name,required String email, required String pasword,required BuildContext context,}) async {
-    try {
-      await auth.createUserWithEmailAndPassword(
-          email: email, password: pasword);
-      await _auth.currentUser!.updateProfile(displayName: name);
-      return null;
-    } on FirebaseAuthException
-    catch (e) {
- Get.snackbar(
-      'Error',e.message!);
-    }
+ //  Future<String?>signUp(  {required String name,required String email, required String pasword,required BuildContext context,}) async {
+ //    try {
+ //      await auth.createUserWithEmailAndPassword(
+ //          email: email, password: pasword);
+ //      await _auth.currentUser!.updateProfile(displayName: name);
+ //      return null;
+ //    } on FirebaseAuthException
+ //    catch (e) {
+ // Get.snackbar(
+ //      'Error',e.message!);
+ //    }
+ //
+ //  }
 
+  Future<String?> signUp({required String name, required String email, required String password, required BuildContext context}) async {
+    try {
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      User? user = userCredential.user;
+      await user?.updateDisplayName(name);
+      return null;
+    } catch (e) {
+      print("Error during sign up: $e");
+      return e.toString();
+    }
   }
 
+//already exist
+  Future<bool> checkIfUserExists(String email) async {
+    try {
+      final signInMethods = await _auth.fetchSignInMethodsForEmail(email);
+      return signInMethods.isNotEmpty;
+    } catch (e) {
+      print("Error checking user existence: $e");
+      return false;
+    }
+  }
 
 
 
   // Sign Out
   Future<void> signOut() async {
-    try {
-      return await _auth.signOut();
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
+
+      await _auth.signOut();
+      await _googleSignIn.signOut();
+
+
   }
 
   // Get Current User

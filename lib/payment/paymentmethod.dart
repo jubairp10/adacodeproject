@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -1,9 +1,13 @@
 
 
+import 'package:banner_carousel/banner_carousel.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hello/login/loginpage.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +39,27 @@ class _Screen1State extends State<Screen1> {
 
 
 
+  final List<String> imgList = [
 
+    "assets/gif/ad159dcc-2ebe-4e96-a8e0-9ccd28857b97.gif",
+    "assets/gif/fa2b4fe3-b78e-4cbe-8d66-7c72fe9601e4.gif",
+    "assets/gif/4e9cb9e7-ef79-4a3e-ac04-6de35679c307.gif"
+
+  ];
+
+
+  String getGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good Morning';
+    } else if (hour < 17) {
+      return 'Good Afternoon';
+    } else if(hour <20){
+      return 'Good Evening';
+    }else{
+      return "Good Night";
+    }
+  }
 
 
 
@@ -63,12 +87,12 @@ class _Screen1State extends State<Screen1> {
 
                      Positioned(left: 30,top: 10,
                        child: CircleAvatar(
-                         backgroundImage: AssetImage("assets/image/photo-1.jpeg"),
+                         backgroundImage: NetworkImage(user.photoURL ?? ''),
                        ),
                      ),
                      Positioned(left: 80,top: 10,
                        child: Text(
-                         "Good Morning",
+                         getGreeting(),
                          style: TextStyle(color: Colors.grey[500]),
                        ),
                      ),
@@ -115,7 +139,7 @@ class _Screen1State extends State<Screen1> {
                 title: Text("Contact Us",style: TextStyle(color: Colors.grey[600]),),
                 onTap: () {
 
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>contact ()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Contact()));
                   // Handle the tap here
                 },
               ),
@@ -198,25 +222,57 @@ class _Screen1State extends State<Screen1> {
             ),
           ),
           SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 210,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage(
-                        'assets/image/5513626_2859376.jpg',
-                      ))),
+
+
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 210, // Adjust the height as needed
+              autoPlay: true,
+              autoPlayInterval: Duration(seconds: 3),
+              autoPlayAnimationDuration: Duration(milliseconds: 2500),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enlargeCenterPage: true,
+              aspectRatio: 16 / 9,
+              viewportFraction: 0.8,
+              initialPage: 0,
             ),
+            items: imgList.map((item) => Container(
+              height: 210, // Adjust the height as needed
+              child: Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
+                  child: Image.asset(item, fit: BoxFit.fill, width: 1000, height: 300.0),
+                ),
+              ),
+            )).toList(),
           ),
+
+
+
+
+
+
+
+
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Container(
+          //     height: 210,
+          //     decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(15),
+          //         image: DecorationImage(
+          //             fit: BoxFit.fill,
+          //             image: AssetImage(
+          //               'assets/image/5513626_2859376.jpg',
+          //             ))),
+          //   ),
+          // ),
           SizedBox(height: 6),
           Padding(
             padding: const EdgeInsets.only(left: 11),
             child: Text(
               "Our institution offers scholarships to outstanding students,\nrecognizing and rewarding exceptional talent and commitment to,\neducation.",
-              style: TextStyle(color: Colors.black, fontSize: 12),
+              style: TextStyle(color: Colors.black, fontSize: 12,fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(height: 20),
@@ -529,7 +585,13 @@ class _Screen1State extends State<Screen1> {
 
 
         ],
+
+
+
       ),
     );
   }
+
+
+
 }
