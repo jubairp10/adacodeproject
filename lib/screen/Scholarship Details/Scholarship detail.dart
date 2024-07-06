@@ -298,7 +298,6 @@ class _ScholarshipState extends State<Scholarship> {
             padding: const EdgeInsets.only(right: 15, left: 15),
             child: InkWell(onTap: adduser,
 
-
               child: Container(height: 52,width: 363,
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10)
                 ,
@@ -341,8 +340,9 @@ async{
 
 
     }).then((value){
-
+      showSnackbar('Succssefully');
       print("user added succesfuly");
+
 
       board_controller.clear();
       mark_controller.clear();
@@ -353,9 +353,13 @@ async{
 
     }).catchError((error)
         {
+          showSnackbar('failed');
           print("failed to add user $error");
 
         }
     );
 
-} }
+} void showSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+}

@@ -3,6 +3,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../main.dart';
 import '../../navigation/navigation.dart';
@@ -11,7 +13,51 @@ import '../home/homescreen.dart';
 
 
 
-class Learning extends StatelessWidget{
+class Learning extends StatefulWidget{
+  @override
+  State<Learning> createState() => _LearningState();
+}
+
+class _LearningState extends State<Learning> {
+  YoutubePlayerController? _controller;
+  String? _lastWatchedVideoId;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLastWatchedVideo();
+  }
+
+  Future<void> _loadLastWatchedVideo() async {
+    String? videoId = await getLastWatchedVideo();
+    setState(() {
+      _lastWatchedVideoId = videoId;
+      if (_lastWatchedVideoId != null) {
+        _controller = YoutubePlayerController(
+          initialVideoId: _lastWatchedVideoId!,
+          flags: YoutubePlayerFlags(
+            autoPlay: true,
+            mute: false,
+          ),
+        );
+      }
+    });
+  }
+
+  Future<String?> getLastWatchedVideo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> videoHistory = prefs.getStringList('videoHistory') ?? [];
+    if (videoHistory.isNotEmpty) {
+      return videoHistory.last;
+    }
+    return null;
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
   return Scaffold(
@@ -43,7 +89,12 @@ class Learning extends StatelessWidget{
     body: ListView(
 
       children: [
-
+        _lastWatchedVideoId == null
+            ? Center(child: Text('No video watched yet.'))
+            : YoutubePlayer(
+          controller: _controller!,
+          showVideoProgressIndicator: true,
+        ),
         Padding(
           padding: const EdgeInsets.only(left: 25),
           child: Text(

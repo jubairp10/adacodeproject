@@ -54,6 +54,7 @@ dependencies:
   get:
   firebase_app_check:
   provider:
+  shared_preferences: ^2.0.6
 
 
 
