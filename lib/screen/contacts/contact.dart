@@ -43,8 +43,7 @@ class _ContactState extends State<Contact> {
         backgroundColor: Colors.white,
         leading: InkWell(
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Naviga()));
+            Navigator.pop(context)  ;
           },
           child: Icon(
             Icons.arrow_back_ios_new_sharp,

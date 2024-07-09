@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../main.dart';
-import '../../navigation/navigation.dart';
 import '../datascience/datascience.dart';
-import '../home/homescreen.dart';
 
 
 
@@ -36,7 +33,7 @@ class _LearningState extends State<Learning> {
         _controller = YoutubePlayerController(
           initialVideoId: _lastWatchedVideoId!,
           flags: YoutubePlayerFlags(
-            autoPlay: true,
+            autoPlay: false,
             mute: false,
           ),
         );
@@ -46,9 +43,12 @@ class _LearningState extends State<Learning> {
 
   Future<String?> getLastWatchedVideo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> videoHistory = prefs.getStringList('videoHistory') ?? [];
+    List<String> videoHistory = prefs.getStringList('videoHistory',) ?? [];
     if (videoHistory.isNotEmpty) {
       return videoHistory.last;
+
+
+
     }
     return null;
   }
@@ -63,24 +63,13 @@ class _LearningState extends State<Learning> {
   return Scaffold(
 
     backgroundColor: Colors.white,
-    appBar: AppBar(
+    appBar: AppBar(centerTitle: true,
       elevation: 0,
       backgroundColor: Colors.white,
-      // leading: InkWell(
-      //   onTap: () {
-      //     Navigator.push(context, MaterialPageRoute(builder: (context)=> Naviga()));
-      //   },
-      //   child: Icon(
-      //     Icons.arrow_back_ios_new_sharp,
-      //     color: Colors.black87,
-      //     size: 25,
-      //   ),
-      // ),
-      title: Center(
-        child: Text(
-          "My Learning",
-          style: TextStyle(color: Colors.black87, fontSize: 20),
-        ),
+
+      title: Text(
+        "My Learning",
+        style: TextStyle(color: Colors.black87, fontSize: 20),
       ),
     ),
 

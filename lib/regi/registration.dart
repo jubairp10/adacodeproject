@@ -594,6 +594,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -645,40 +646,44 @@ class _RegiState extends State<Regi> {
 
   @override
   Widget build(BuildContext context) {
+
+    ScreenUtil.init(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        elevation: 0,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back_ios_new_sharp, color: Colors.black87, size: 25),
+          child: Icon(Icons.arrow_back_ios_new_sharp, color: Colors.black87, size: 25.sp),
         ),
       ),
       body: Form(
         key: formkey,
         child: ListView(
           children: [
-            SizedBox(height: 40),
+            SizedBox(height: 40.h),
             Center(
               child: Text(
                 "Hello Again!",
-                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30),
+                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30.sp),
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Text(
               textAlign: TextAlign.center,
               "Welcome Back You’ve\nbeen Missed!",
               style: TextStyle(color: Colors.black),
             ),
-            SizedBox(height: 40),
-            Padding(
+            SizedBox(height: 40.h),
+            RPadding(
               padding: const EdgeInsets.only(right: 26, left: 26),
               child: Container(
-                height: 67,
-                width: 377,
+                height: 67.h,
+                width: 377.w,
                 child: TextFormField(
                   controller: namecontroller,
                   textInputAction: TextInputAction.next,
@@ -705,12 +710,12 @@ class _RegiState extends State<Regi> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Padding(
+            SizedBox(height: 20.h),
+            RPadding(
               padding: const EdgeInsets.only(right: 26, left: 26),
               child: Container(
-                height: 67,
-                width: 377,
+                height: 67.h,
+                width: 377.w,
                 child: TextFormField(
                   controller: emailcontroller,
                   textInputAction: TextInputAction.next,
@@ -738,12 +743,12 @@ class _RegiState extends State<Regi> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Padding(
+            SizedBox(height: 20.h),
+            RPadding(
               padding: const EdgeInsets.only(right: 26, left: 26),
               child: Container(
-                height: 67,
-                width: 377,
+                height: 67.h,
+                width: 377.w,
                 child: TextFormField(
                   controller: passwordcontroller,
                   textInputAction: TextInputAction.next,
@@ -770,8 +775,8 @@ class _RegiState extends State<Regi> {
                 ),
               ),
             ),
-            SizedBox(height: 30),
-            Padding(
+            SizedBox(height: 30.h),
+            RPadding(
               padding: const EdgeInsets.only(right: 25, left: 25),
               child: InkWell(
                 onTap: () async {
@@ -792,58 +797,55 @@ class _RegiState extends State<Regi> {
                   }
                 },
                 child: Container(
-                  height: 50,
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  height: 50.h,
+                  margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
                   decoration: BoxDecoration(
                     color: Colors.teal,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Center(
-                    child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 20)),
+                    child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 20.sp)),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.only(left: 45),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(width: 7),
-                  InkWell(
-                    onTap: signInWithGoogle,
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      height: 40,
-                      decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          Image(image: AssetImage("assets/image/google-logo-9808.png")),
-                          Text("   Google   ", style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
+            SizedBox(height: 50.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(width: 7.w),
+                InkWell(
+                  onTap: signInWithGoogle,
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    height: 40.h,
+                    decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      children: [
+                        Image(image: AssetImage("assets/image/google-logo-9808.png")),
+                        Text("   Google   ", style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 93),
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      height: 40,
-                      decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image(image: AssetImage("assets/image/pngwing.com.png")),
-                          Text("   Apple  ", style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    ),
+                ),
+                SizedBox(width: 25.w,),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  height: 40.h,
+                  decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image(image: AssetImage("assets/image/pngwing.com.png")),
+                      Text("   Apple  ", style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+            Text(" "),
           ],
+
         ),
       ),
     );

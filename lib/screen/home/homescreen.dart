@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hello/login/loginpage.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,8 @@ class Screen1 extends StatefulWidget {
 
 class _Screen1State extends State<Screen1> {
   GlobalKey<ScaffoldState>_scaffoldkey=GlobalKey<ScaffoldState>();
+
+
 
 
 
@@ -63,47 +66,51 @@ class _Screen1State extends State<Screen1> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
+
+
     final user = context.read<FirebaseHelper>().user;
     return Scaffold(
     key: _scaffoldkey,
-      endDrawer: Padding(
+      endDrawer: RPadding(
         padding: const EdgeInsets.only(left: 150,top: 30),
         child: Drawer(
           child: ListView(
 
             padding: EdgeInsets.zero,
             children: <Widget>[
-              SizedBox(height: 30),
-             Padding(
+              SizedBox(height: 30.h),
+             RPadding(
                padding: const EdgeInsets.all(8.0),
-               child: Container(height: 63,width: 198,
+               child: Container(height: 63.h,width: 198.w,
                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.grey[300]
 
                  ),
                  child: Stack(
                    children: [
 
-                     Positioned(left: 30,top: 10,
+                     Positioned(left: 30.w,top: 10.h,
                        child: CircleAvatar(
                          backgroundImage: NetworkImage(user.photoURL ?? ''),
                        ),
                      ),
-                     Positioned(left: 80,top: 10,
+                     Positioned(left: 80.w,top: 10.h,
                        child: Text(
                          getGreeting(),
                          style: TextStyle(color: Colors.grey[500]),
                        ),
                      ),
-                     Positioned(left: 80,top: 30,
+                     Positioned(left: 75.w,top: 30.h,
                        child:
                        Text(
                         ' ${user.displayName !}',
                          style: TextStyle(
                              color: Colors.black87,
                              fontWeight: FontWeight.bold,
-                             fontSize: 17),
+                             fontSize: 12.sp),
                        ),
                      ),
                    ],
@@ -111,7 +118,7 @@ class _Screen1State extends State<Screen1> {
                ),
              ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.home,size: 15,color: Colors.grey[600],),
+                leading: FaIcon(FontAwesomeIcons.home,size: 15.sp,color: Colors.grey[600],),
                 title: Text('Home',style: TextStyle(color: Colors.grey[600]),),
                 onTap: () {
                   // Handle the tap here
@@ -119,7 +126,7 @@ class _Screen1State extends State<Screen1> {
                 },
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.book,size: 15,color: Colors.grey[600]),
+                leading: FaIcon(FontAwesomeIcons.book,size: 15.sp,color: Colors.grey[600]),
                 title: Text('My Learning',style: TextStyle(color: Colors.grey[600]),),
                 onTap: () {
                   // Handle the tap here
@@ -127,7 +134,7 @@ class _Screen1State extends State<Screen1> {
                 },
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.graduationCap,size: 15,color: Colors.grey[600]),
+                leading: FaIcon(FontAwesomeIcons.graduationCap,size: 15.sp,color: Colors.grey[600]),
                 title: Text('Scholarship',style: TextStyle(color: Colors.grey[600]),),
                 onTap: () {
                   // Handle the tap here
@@ -135,7 +142,7 @@ class _Screen1State extends State<Screen1> {
                 },
               ),
               ListTile(
-                leading:Icon(Icons.person,size: 20,color: Colors.grey[600]),
+                leading:Icon(Icons.person,size: 20.sp,color: Colors.grey[600]),
                 title: Text("Contact Us",style: TextStyle(color: Colors.grey[600]),),
                 onTap: () {
 
@@ -143,8 +150,8 @@ class _Screen1State extends State<Screen1> {
                   // Handle the tap here
                 },
               ),
-          SizedBox(height: 310,),
-          Padding(
+          SizedBox(height: 310.h,),
+          RPadding(
             padding: const EdgeInsets.all(20.0),
             child: InkWell(onTap: ()
 
@@ -158,14 +165,14 @@ class _Screen1State extends State<Screen1> {
 
 
             },
-              child: Container(height: 43,width: 163,
+              child: Container(height: 43.h,width: 163.w,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.grey[300]
                 ),
                 child: Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FaIcon(FontAwesomeIcons.signOutAlt,size: 15),
-                    SizedBox(width: 10,),
-                    Text('Sign Out',style: TextStyle(fontSize: 16),),
+                    FaIcon(FontAwesomeIcons.signOutAlt,size: 15.sp),
+                    SizedBox(width: 10.w,),
+                    Text('Sign Out',style: TextStyle(fontSize: 16.sp),),
                   ],
                 )
                 ),
@@ -181,23 +188,24 @@ class _Screen1State extends State<Screen1> {
           ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.white,
-              backgroundImage: AssetImage(
-                "assets/image/photo-1.jpeg",
-              ),
+              backgroundImage: NetworkImage(user.photoURL ?? ''),
               radius: 20,
             ),
-            title: Text(
-              getGreeting(),
-              style: TextStyle(color: Colors.grey[400]),
+            title: RPadding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Text(
+                getGreeting(),
+                style: TextStyle(color: Colors.grey[400]),
+              ),
             ),
             subtitle: Text(
               ' ${user.displayName !}',
               style: TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.bold,
-                  fontSize: 17),
+                  fontSize: 17.sp),
             ),
-            trailing: Padding(
+            trailing: RPadding(
               padding: const EdgeInsets.only(bottom: 10),
               child: InkWell(onTap: (){
                 _scaffoldkey.currentState?.openEndDrawer();
@@ -205,28 +213,28 @@ class _Screen1State extends State<Screen1> {
                 child: Image.asset(
                   "assets/image/menu (2).png",
                   color: Colors.black,
-                  height: 34,
+                  height: 34.h,
                 ),
               ),
             ),
           ),
-          SizedBox(height: 30),
-          Padding(
+          SizedBox(height: 10.h),
+          RPadding(
             padding: const EdgeInsets.only(left: 12),
             child: Text(
               "About Us",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 5.h),
 
 
           CarouselSlider(
             options: CarouselOptions(
-              height: 210, // Adjust the height as needed
+              height: 210.h, // Adjust the height as needed
               autoPlay: true,
               autoPlayInterval: Duration(seconds: 3),
               autoPlayAnimationDuration: Duration(milliseconds: 2500),
@@ -237,11 +245,11 @@ class _Screen1State extends State<Screen1> {
               initialPage: 0,
             ),
             items: imgList.map((item) => Container(
-              height: 210, // Adjust the height as needed
+              height: 210.h, // Adjust the height as needed
               child: Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
-                  child: Image.asset(item, fit: BoxFit.fill, width: 1000, height: 300.0),
+                  child: Image.asset(item, fit: BoxFit.fill, width: 1000.w, height: 300.0.h),
                 ),
               ),
             )).toList(),
@@ -267,16 +275,16 @@ class _Screen1State extends State<Screen1> {
           //             ))),
           //   ),
           // ),
-          SizedBox(height: 6),
-          Padding(
+          SizedBox(height: 6.h),
+          RPadding(
             padding: const EdgeInsets.only(left: 11),
             child: Text(
               "Our institution offers scholarships to outstanding students,\nrecognizing and rewarding exceptional talent and commitment to,\neducation.",
-              style: TextStyle(color: Colors.black, fontSize: 12,fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.black, fontSize: 12.sp,fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 20),
-          Padding(
+          SizedBox(height: 20.h),
+          RPadding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
@@ -285,47 +293,47 @@ class _Screen1State extends State<Screen1> {
                 color: Colors.teal,
                 // image: DecorationImage(image: AssetImage('Albert_Schweitzer.png',),fit: BoxFit.cover,)
               ),
-              height: 200,
+              height: 200.h,
               child: Stack(
                 children: [
                   Positioned(
-                    left: 12,
-                    top: 8,
+                    left: 12.w,
+                    top: 8.h,
                     child: Text(
                       "Scholarship",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25),
+                          fontSize: 25.sp),
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50, left: 10),
+                  SizedBox(height: 5.h),
+                  Positioned(top: 40.h,
+                    left: 10.w,
                     child: Text(
                       "Our institution offers scholarships to\noutstanding students, recognizing and\nrewarding exceptional talent and commitment\nto education. ",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w400),
                     ),
                   ),
                   Positioned(
-                    right: 0,
-                    height: 50,
-                    child: Padding(
+                    right: 0.w,
+                    height: 50.h,
+                    child: RPadding(
                       padding: const EdgeInsets.only(right: 10),
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
                         backgroundImage: AssetImage(
-                          "assets/image/photo-1.jpeg",
+                          "assets/image/99.png",
                         ),
                         radius: 20,
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 130),
+                  Positioned(top: 140.h,
+                    left: 50.w,
                     child: Center(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -345,18 +353,18 @@ class _Screen1State extends State<Screen1> {
             ),
           ),
           SizedBox(
-            height: 13,
+            height: 13.h,
           ),
           SafeArea(
-            child: Container(
+            child: Container(height: 250.h,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Padding(
+                    RPadding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        height: 223,width: 175,
+                        height: 223.h,width: 175.w,
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(15),
@@ -369,50 +377,44 @@ class _Screen1State extends State<Screen1> {
                                 image:
                                 AssetImage("assets/image/DataScience_shutterstock_1054542323 (1).png"),
                                 fit: BoxFit.fill,
-                                height: 97,width: 175,
+                                height: 97.h,width: 175.w,
                               ),
                             ),
                             Positioned(
-                              bottom: 4,
-                              left: 10,
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom:95),
-                                child: Text(
-                                  "Data Science",
-                                  style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Positioned(
-                              bottom: 1,
-                              left: 10,
+                              bottom: 95.h,
+                              left: 10.w,
 
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 57,),
-                                child: Text(
-                                  "Learn to Datasciene and\nmachine learning...",
-                                  style: TextStyle(color: Colors.black87),
-                                ),
+                              child: Text(
+                                "Data Science",
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(height: 4.h),
+                            Positioned(
+
+                              left: 10.w,
+                           bottom: 55.h,
+
+                              child: Text(
+                                "Learn to Datasciene and\nmachine learning...",
+                                style: TextStyle(color: Colors.black87),
                               ),),
 
-                            Padding(
-                              padding: const EdgeInsets.only(top: 160,left: 8),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black87),
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Data()));
-                                  },
-                                  child: Text(
-                                    "   23 Lessons  ",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                            Positioned(
+                              top: 169.h,
+                              left: 25.w,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black87),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Data()));
+                                },
+                                child: Text(
+                                  "   6 Lessons  ",
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
                             ),
@@ -425,10 +427,10 @@ class _Screen1State extends State<Screen1> {
 
 
 
-                    Padding(
+                    RPadding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        height: 223,width: 175,
+                        height: 223.h,width: 175.w,
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(15),
@@ -441,50 +443,44 @@ class _Screen1State extends State<Screen1> {
                                 image:
                                 AssetImage("assets/image/1687700213776.png"),
                                 fit: BoxFit.fill,
-                                height: 97,width: 175,
+                                height: 97.h,width: 175.w,
                               ),
                             ),
                             Positioned(
-                              bottom: 4,
-                              left: 10,
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom:95),
-                                child: Text(
-                                  "Mern Stack",
-                                  style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Positioned(
-                              bottom: 1,
-                              left: 10,
+                              bottom: 95.h,
+                              left: 10.w,
 
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 57,),
-                                child: Text(
-                                  "Learn to create fullstack\nweb apps..",
-                                  style: TextStyle(color: Colors.black87),
-                                ),
+                              child: Text(
+                                "Mern Stack",
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(height: 4.h),
+                            Positioned(
+
+                              left: 10.w,
+                              bottom: 55.h,
+
+                              child: Text(
+                                "Learn to Datasciene and\nmachine learning...",
+                                style: TextStyle(color: Colors.black87),
                               ),),
 
-                            Padding(
-                              padding: const EdgeInsets.only(top: 160,left: 8),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black87),
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>mern()));
-                                  },
-                                  child: Text(
-                                    "   12 Lessons  ",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                            Positioned(
+                              top: 169.h,
+                              left: 25.w,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black87),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>mern()));
+                                },
+                                child: Text(
+                                  "   6 Lessons  ",
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
                             ),
@@ -496,10 +492,10 @@ class _Screen1State extends State<Screen1> {
                     ),
 
 
-                    Padding(
+                    RPadding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        height: 223,width: 175,
+                        height: 223.h,width: 175.w,
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(15),
@@ -512,50 +508,44 @@ class _Screen1State extends State<Screen1> {
                                 image:
                                 AssetImage("assets/image/images (5).jpeg"),
                                 fit: BoxFit.fill,
-                                height: 97,width: 175,
+                                height: 97.h,width: 175.w,
                               ),
                             ),
                             Positioned(
-                              bottom: 4,
-                              left: 10,
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom:95),
-                                child: Text(
-                                  "Flutter",
-                                  style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Positioned(
-                              bottom: 1,
-                              left: 10,
+                              bottom: 95.h,
+                              left: 10.w,
 
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 57,),
-                                child: Text(
-                                  "Learn to Datasciene and\nmachine learning...",
-                                  style: TextStyle(color: Colors.black87),
-                                ),
+                              child: Text(
+                                "Flutter",
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(height: 4.h),
+                            Positioned(
+
+                              left: 10.w,
+                              bottom: 55.h,
+
+                              child: Text(
+                                "Learn to Datasciene and\nmachine learning...",
+                                style: TextStyle(color: Colors.black87),
                               ),),
 
-                            Padding(
-                              padding: const EdgeInsets.only(top: 160,left: 8),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black87),
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>flutter()));
-                                  },
-                                  child: Text(
-                                    "   23 Lessons  ",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                            Positioned(
+                              top: 169.h,
+                              left: 25.w,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black87),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>flutter()));
+                                },
+                                child: Text(
+                                  "   6 Lessons  ",
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
                             ),
@@ -571,10 +561,10 @@ class _Screen1State extends State<Screen1> {
 
 
                   ],
-            
-            
+
+
                 ),
-            
+
               ),
 
             ),
