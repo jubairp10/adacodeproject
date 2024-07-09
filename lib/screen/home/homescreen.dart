@@ -187,7 +187,7 @@ class _Screen1State extends State<Screen1> {
               radius: 20,
             ),
             title: Text(
-              "Good Morning",
+              getGreeting(),
               style: TextStyle(color: Colors.grey[400]),
             ),
             subtitle: Text(
