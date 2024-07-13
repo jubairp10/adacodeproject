@@ -1,13 +1,13 @@
 
 
-import 'package:banner_carousel/banner_carousel.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hello/login/loginpage.dart';
@@ -76,11 +76,12 @@ class _Screen1State extends State<Screen1> {
     return Scaffold(
     key: _scaffoldkey,
       endDrawer: RPadding(
-        padding: const EdgeInsets.only(left: 150,top: 30),
+        padding: const EdgeInsets.only(left: 150,top: 30,bottom: 30),
         child: Drawer(
-          child: ListView(
+           backgroundColor: Colors.white,
+          child: Column(
 
-            padding: EdgeInsets.zero,
+            // padding: EdgeInsets.zero,
             children: <Widget>[
               SizedBox(height: 30.h),
              RPadding(
@@ -103,7 +104,7 @@ class _Screen1State extends State<Screen1> {
                          style: TextStyle(color: Colors.grey[500]),
                        ),
                      ),
-                     Positioned(left: 75.w,top: 30.h,
+                     Positioned(left: 78.w,top: 30.h,
                        child:
                        Text(
                         ' ${user.displayName !}',
@@ -150,7 +151,8 @@ class _Screen1State extends State<Screen1> {
                   // Handle the tap here
                 },
               ),
-          SizedBox(height: 310.h,),
+          SizedBox(height: 180.h,),
+
           RPadding(
             padding: const EdgeInsets.all(20.0),
             child: InkWell(onTap: ()
@@ -234,18 +236,18 @@ class _Screen1State extends State<Screen1> {
 
           CarouselSlider(
             options: CarouselOptions(
-              height: 210.h, // Adjust the height as needed
+              height: 180.h, // Adjust the height as needed
               autoPlay: true,
               autoPlayInterval: Duration(seconds: 3),
               autoPlayAnimationDuration: Duration(milliseconds: 2500),
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
-              aspectRatio: 16 / 9,
+              aspectRatio: 13/9,
               viewportFraction: 0.8,
               initialPage: 0,
             ),
             items: imgList.map((item) => Container(
-              height: 210.h, // Adjust the height as needed
+              height: 190.h, // Adjust the height as needed
               child: Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
@@ -280,7 +282,7 @@ class _Screen1State extends State<Screen1> {
             padding: const EdgeInsets.only(left: 11),
             child: Text(
               "Our institution offers scholarships to outstanding students,\nrecognizing and rewarding exceptional talent and commitment to,\neducation.",
-              style: TextStyle(color: Colors.black, fontSize: 12.sp,fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.black, fontSize: 11.sp,fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(height: 20.h),

@@ -57,7 +57,7 @@ class _DataState extends State<Data> {
       case 1:
         lessonPage = MyHomePage2();
         break;
-      // Add more cases for additional lessons
+    // Add more cases for additional lessons
       default:
         lessonPage = MyHomePage2(); // Default page if index is out of range
     }
@@ -70,24 +70,12 @@ class _DataState extends State<Data> {
 
   @override
   Widget build(BuildContext context) {
-
     ScreenUtil.init(context);
 
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     setState(() {
-      //       _controller.value.isPlaying
-      //           ? _controller.pause()
-      //           : _controller.play();
-      //     });
-      //   },
-      //   child: Icon(
-      //     _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-      //   ),
-      // ),
       backgroundColor: Colors.white,
-      appBar: AppBar(centerTitle: true,
+      appBar: AppBar(
+        centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,
         leading: InkWell(
@@ -105,214 +93,221 @@ class _DataState extends State<Data> {
           style: TextStyle(color: Colors.black87, fontSize: 20.sp),
         ),
       ),
-
-      body: Stack(children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
           children: [
-            SizedBox(height: 5.h),
-            // Padding(
-            //   padding: const EdgeInsets.only(right: 15, left: 15),
-            //   child: Container(
-            //     height: 219,
-            //     width: 395,
-            //     decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.circular(15),
-            //         image: DecorationImage(
-            //             fit: BoxFit.fill,
-            //             image: AssetImage(
-            //               'assets/image/DataScience_shutterstock_1054542323 (1).png',
-            //             ),),
-            //     ),
-            //   ),
-            // ),
-            RPadding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Center(
-                    child: _controller.value.isInitialized
-                        ? AspectRatio(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 5.h),
+                RPadding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                      child: _controller.value.isInitialized
+                          ? Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          AspectRatio(
                             aspectRatio: _controller.value.aspectRatio,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child:
-                                    Container(child: VideoPlayer(_controller)),
+                                child: VideoPlayer(_controller),
                               ),
                             ),
-                          )
-                        : Container(),
-                  )),
-            ),
-
-            SizedBox(height: 5.h),
-
-            RPadding(
-              padding: const EdgeInsets.only(left: 18),
-              child: Text(
-                "Data Science",
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            RPadding(
-              padding: const EdgeInsets.only(left: 18),
-              child: Text(
-                "A Comprehensive data science course with machine learning\nand python programming ",
-                style: TextStyle(fontSize: 12.spMin, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 5.h),
-            Row(
-              children: [
-                Container(
-                  height: 24.sp,
-                  width: 55.w,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.black),
-                  child: Row(
-                    children: [
-                      RPadding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Icon(
-                          Icons.star_border,
-                          color: Colors.white,
-                          size: 13.sp,
-                        ),
-                      ),
-                      RPadding(
-                        padding: const EdgeInsets.only(left: 2),
-                        child: Text(
-                          "48",
-                          style: TextStyle(color: Colors.white, fontSize: 13.sp),
-                        ),
-                      ),
-                    ],
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              height: 40.h,
+                              width: 40.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.white,
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _controller.value.isPlaying
+                                        ? _controller.pause()
+                                        : _controller.play();
+                                  });
+                                },
+                                icon: Icon(
+                                  _controller.value.isPlaying
+                                      ? Icons.pause
+                                      : Icons.play_arrow,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                          : Container(),
+                    ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(left: 1.w, right: 1.w, top: 2.h),
-                  height: 24.h,
-                  width: 65.w,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.black),
+                SizedBox(height: 5.h),
+                RPadding(
+                  padding: const EdgeInsets.only(left: 18),
                   child: Text(
-                    " 12 Hours",
-                    style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                    "Data Science",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ],
-            ),
-
-            SizedBox(height: 15.h),
-            Expanded(
-                child: ListView.builder(
-                    itemCount: 6,
-                    itemBuilder: (context, index) {
-                      return RPadding(
-                          padding: EdgeInsets.only(right: 10, left: 10),
-                          child: ispaymentConfirmed
-                              ? InkWell(
-                                  onTap: () {
-                                    _navigateToLesson(context, index);
-                                  },
-                                  child: RPadding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10, bottom: 10),
-                                    child: Container(
-                                      height: 89.h,
-                                      width: 391.w,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(15),
-                                          color: Colors.grey[300]),
-                                      child: Row(children: [
-                                        Stack(children: [
-                                          RPadding(
-                                            padding:
-                                            const EdgeInsets.all(10),
-                                            child: ClipRRect(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    12),
-                                                child: Image(
-                                                  image: AssetImage(
-                                                      "assets/image/DataScience_shutterstock_1054542323 (1).png"),
-                                                  height: 69.h,
-                                                  width: 112.w,
-                                                  fit: BoxFit.fill,
-                                                )),
-                                          ),
-                                          RPadding(
-                                            padding: const EdgeInsets.only(
-                                                left: 130, top: 3),
-                                            child: Text(
-                                              '${lesson[index]}',
-                                              style: TextStyle(
-                                                  color: Colors.black87,
-                                                  fontSize: 15.sp,
-                                                  fontWeight:
-                                                  FontWeight.bold),
+                RPadding(
+                  padding: const EdgeInsets.only(left: 18),
+                  child: Text(
+                    "A Comprehensive data science course with machine learning\nand python programming",
+                    style: TextStyle(
+                      fontSize: 12.spMin,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                Row(
+                  children: [
+                    Container(
+                      height: 24.sp,
+                      width: 55.w,
+                      margin: EdgeInsets.symmetric(horizontal: 20.w),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.black,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.star_border,
+                            color: Colors.white,
+                            size: 13.sp,
+                          ),
+                          Text(
+                            "48",
+                            style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(2),
+                      height: 24.sp,
+                      width: 65.w,
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.black,
+                      ),
+                      child: Text(
+                        " 12 Hours",
+                        style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15.h),
+                Expanded(
+                    child: ListView.builder(
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          return RPadding(
+                            padding: EdgeInsets.only(right: 10, left: 10),
+                            child: ispaymentConfirmed
+                                ? InkWell(
+                              onTap: () {
+                                _navigateToLesson(context, index);
+                              },
+                              child: RPadding(
+                                padding: const EdgeInsets.only(
+                                    top: 10, bottom: 10),
+                                child: Container(
+                                  height: 89.h,
+                                  width: 391.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Colors.grey[300],
+                                  ),
+                                  child: SizedBox(
+                                    height: 89.h,
+                                    width: 391.w,
+                                    child: Stack(
+                                      children: [
+                                        Positioned(
+                                          top: 10,
+                                          left: 10,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(12),
+                                            child: Image.asset(
+                                              "assets/image/DataScience_shutterstock_1054542323 (1).png",
+                                              height: 69.h,
+                                              width: 112.w,
+                                              fit: BoxFit.fill,
                                             ),
                                           ),
-                                          RPadding(
-                                            padding: const EdgeInsets.only(
-                                                left: 130, top: 22),
-                                            child: Text(
-                                              "A Comprehensive data science course with\nmachine learning and python programming ",
-                                              style:
-                                              TextStyle(fontSize: 10.sp),
+                                        ),
+                                        Positioned(
+                                          top: 3,
+                                          left: 140,
+                                          child: Text(
+                                            '${lesson[index]}',
+                                            style: TextStyle(
+                                              color: Colors.black87,
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          Positioned(
-                                            bottom: 10.h,
-                                            left: 100,
-                                            child: Container(
-                                              height: 21.h,
-                                              width: 65.w,
-                                              margin:
-                                              EdgeInsets.symmetric(
-                                                horizontal: 33.w,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(15),
-                                                  color: Colors.black),
-                                              child: RPadding(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    top: 2, left: 5),
-                                                child: Text(
-                                                  " 13 Mins",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 12.sp),
+                                        ),
+                                        Positioned(
+                                          top: 30,
+                                          left: 140,
+                                          child: Text(
+                                            "A Comprehensive data science course with\nmachine learning and python programming",
+                                            style: TextStyle(
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 4.h,
+                                          left: 125.w,
+                                          child: Container(
+                                            height: 21.h,
+                                            width: 60.w,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(15),
+                                              color: Colors.black,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "13 Mins",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12.sp,
                                                 ),
                                               ),
                                             ),
-                                          )
-                                        ],
+                                          ),
                                         ),
                                       ],
-                                      ),
                                     ),
-
-                                  ),)
+                                  ),
+                                ),
+                              ),
+                            )
                               : Blur(
                                   blur: 1.1,
                                   blurColor: Theme.of(context).cardColor,
@@ -324,78 +319,75 @@ class _DataState extends State<Data> {
                                       height: 89.h,
                                       width: 391.w,
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(15),
-                                          color: Colors.grey[300]),
-                                      child: Row(children: [
-                                        Stack(children: [
-                                          RPadding(
-                                            padding:
-                                            const EdgeInsets.all(10),
-                                            child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.grey[300],
+                                      ),
+                                      child: SizedBox(
+                                        height: 89.h,
+                                        width: 391.w,
+                                        child: Stack(
+                                          children: [
+                                            Positioned(
+                                              top: 10,
+                                              left: 10,
+                                              child: ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(
-                                                    12),
-                                                child: Image(
-                                                  image: AssetImage(
-                                                      "assets/image/DataScience_shutterstock_1054542323 (1).png"),
+                                                BorderRadius.circular(12),
+                                                child: Image.asset(
+                                                  "assets/image/DataScience_shutterstock_1054542323 (1).png",
                                                   height: 69.h,
                                                   width: 112.w,
                                                   fit: BoxFit.fill,
-                                                )),
-                                          ),
-                                          RPadding(
-                                            padding: const EdgeInsets.only(
-                                                left: 130, top: 3),
-                                            child: Text(
-                                              '${lesson[index]}',
-                                              style: TextStyle(
-                                                  color: Colors.black87,
-                                                  fontSize: 15.sp,
-                                                  fontWeight:
-                                                  FontWeight.bold),
-                                            ),
-                                          ),
-                                          RPadding(
-                                            padding: const EdgeInsets.only(
-                                                left: 130, top: 22),
-                                            child: Text(
-                                              "A Comprehensive data science course with\nmachine learning and python programming ",
-                                              style:
-                                              TextStyle(fontSize: 10.sp,fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            bottom: 10.h,
-                                            left: 100,
-                                            child: Container(
-                                              height: 21.h,
-                                              width: 65.w,
-                                              margin:
-                                              EdgeInsets.symmetric(
-                                                horizontal: 33.w,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(15),
-                                                  color: Colors.black),
-                                              child: RPadding(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    top: 2, left: 5),
-                                                child: Text(
-                                                  " 13 Mins",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 12.sp),
                                                 ),
                                               ),
                                             ),
-                                          )
-                                        ],
+                                            Positioned(
+                                              top: 3,
+                                              left: 140,
+                                              child: Text(
+                                                '${lesson[index]}',
+                                                style: TextStyle(
+                                                  color: Colors.black87,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: 30,
+                                              left: 140,
+                                              child: Text(
+                                                "A Comprehensive data science course with\nmachine learning and python programming",
+                                                style: TextStyle(
+                                                  fontSize: 10.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom: 4.h,
+                                              left: 125.w,
+                                              child: Container(
+                                                height: 21.h,
+                                                width: 60.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(15),
+                                                  color: Colors.black,
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "13 Mins",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12.sp,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
                                       ),
                                     ),
 
@@ -405,28 +397,28 @@ class _DataState extends State<Data> {
                     }))
           ],
         ),
-        Positioned(
-          top: 80.h,
-          left: 160.w,
-          child: Container(
-            height: 40.h,
-            width: 40.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15), color: Colors.white),
-            child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    _controller.value.isPlaying
-                        ? _controller.pause()
-                        : _controller.play();
-                  });
-                },
-                icon: Icon(
-                  _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                  color: Colors.black87,
-                )),
-          ),
-        ),
+        // Positioned(
+        //   top: 80.h,
+        //   left: 160.w,
+        //   child: Container(
+        //     height: 40.h,
+        //     width: 40.w,
+        //     decoration: BoxDecoration(
+        //         borderRadius: BorderRadius.circular(15), color: Colors.white),
+        //     child: IconButton(
+        //         onPressed: () {
+        //           setState(() {
+        //             _controller.value.isPlaying
+        //                 ? _controller.pause()
+        //                 : _controller.play();
+        //           });
+        //         },
+        //         icon: Icon(
+        //           _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        //           color: Colors.black87,
+        //         )),
+        //   ),
+        // ),
         if (!ispaymentConfirmed)
           Positioned(
             bottom: 1.h,
